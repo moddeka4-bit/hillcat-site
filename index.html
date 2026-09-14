@@ -1,0 +1,1565 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hillcat</title>
+<meta name="description" content="Hillcat — best boxer in the UFC baby">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><circle cx='24' cy='27' r='13' fill='none' stroke='%23a06bff' stroke-width='3.5'/><path d='M14.5 17.5 11 7l10.5 6M33.5 17.5 37 7 26.5 13' fill='none' stroke='%23a06bff' stroke-width='3.5' stroke-linejoin='round'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script>
+  function imgFail(el){
+    el.classList.add('dead');
+    var p = el.parentElement;
+    if(p) p.classList.add('noimg');
+  }
+</script>
+<style>
+/* ============================================================
+   HILLCAT — THEME VARIABLES
+   ============================================================ */
+:root{
+  --bg:#06060b;
+  --panel:rgba(255,255,255,.035);
+  --panel-2:rgba(255,255,255,.065);
+  --panel-3:rgba(255,255,255,.10);
+  --border:rgba(255,255,255,.09);
+  --border-strong:rgba(255,255,255,.16);
+  --text:#eef0f6;
+  --muted:#8b8da3;
+  --accent:#a06bff;
+  --accent-2:#28d7f0;
+  --g1:rgba(125,60,255,.30);
+  --g2:rgba(0,190,255,.22);
+  --g3:rgba(255,60,160,.18);
+  --shadow:0 24px 60px rgba(0,0,0,.55);
+  --shadow-sm:0 10px 30px rgba(0,0,0,.35);
+  --grid-line:rgba(255,255,255,.022);
+  --radius:20px;
+  --radius-sm:14px;
+}
+html[data-theme="light"]{
+  --bg:#eef1f9;
+  --panel:rgba(255,255,255,.72);
+  --panel-2:rgba(255,255,255,.92);
+  --panel-3:rgba(255,255,255,1);
+  --border:rgba(20,22,50,.09);
+  --border-strong:rgba(20,22,50,.16);
+  --text:#12131c;
+  --muted:#6b6e88;
+  --accent:#7c3aed;
+  --accent-2:#0891b2;
+  --g1:rgba(140,90,255,.35);
+  --g2:rgba(60,190,255,.30);
+  --g3:rgba(255,110,180,.28);
+  --shadow:0 24px 60px rgba(40,50,90,.16);
+  --shadow-sm:0 10px 30px rgba(40,50,90,.10);
+  --grid-line:rgba(20,20,60,.045);
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  transition:background .6s ease,color .6s ease;
+  line-height:1.5;
+}
+::selection{background:var(--accent);color:#fff}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:10px;border:3px solid transparent;background-clip:content-box}
+::-webkit-scrollbar-thumb:hover{background:var(--accent);background-clip:content-box;border:3px solid transparent}
+
+/* ============================================================
+   ANIMATED BACKGROUND
+   ============================================================ */
+.bg{
+  position:fixed;
+  inset:-25%;
+  z-index:-4;
+  background:
+    radial-gradient(42% 42% at 15% 18%, var(--g1), transparent 70%),
+    radial-gradient(38% 38% at 85% 12%, var(--g2), transparent 70%),
+    radial-gradient(46% 46% at 50% 92%, var(--g3), transparent 70%);
+  filter:blur(30px);
+  animation:bgDrift 28s ease-in-out infinite alternate;
+  transition:background .8s ease;
+}
+@keyframes bgDrift{
+  0%  {transform:translate3d(-2%,-1%,0) scale(1)    rotate(0deg)}
+  50% {transform:translate3d(3%,2%,0)   scale(1.10) rotate(4deg)}
+  100%{transform:translate3d(-1%,3%,0)  scale(1.04) rotate(-3deg)}
+}
+
+.blob{
+  position:fixed;
+  border-radius:50%;
+  filter:blur(90px);
+  z-index:-3;
+  pointer-events:none;
+  opacity:.55;
+  transition:background .8s ease,opacity .8s ease;
+}
+.b1{width:460px;height:460px;top:-160px;left:-140px;background:radial-gradient(circle,var(--g1),transparent 70%);animation:float1 22s ease-in-out infinite}
+.b2{width:520px;height:520px;top:20%;right:-200px;background:radial-gradient(circle,var(--g2),transparent 70%);animation:float2 27s ease-in-out infinite}
+.b3{width:420px;height:420px;bottom:-180px;left:35%;background:radial-gradient(circle,var(--g3),transparent 70%);animation:float3 31s ease-in-out infinite}
+@keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(70px,60px)}}
+@keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(-80px,90px)}}
+@keyframes float3{0%,100%{transform:translate(0,0)}50%{transform:translate(50px,-70px)}}
+
+.grid-overlay{
+  position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background-image:
+    linear-gradient(var(--grid-line) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid-line) 1px,transparent 1px);
+  background-size:68px 68px;
+  -webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 30%,#000 10%,transparent 85%);
+  mask-image:radial-gradient(ellipse 90% 70% at 50% 30%,#000 10%,transparent 85%);
+  transition:background-image .6s ease;
+}
+
+/* ============================================================
+   ICONS
+   ============================================================ */
+.sprite{position:absolute;width:0;height:0;overflow:hidden}
+.ic{
+  width:18px;height:18px;flex:none;
+  stroke:currentColor;fill:none;
+  stroke-width:1.7;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.ic.filled{fill:currentColor;stroke:none}
+
+/* ============================================================
+   THEME TOGGLE (bottom-left)
+   ============================================================ */
+.theme-btn{
+  position:fixed;
+  left:22px;bottom:22px;
+  z-index:80;
+  width:54px;height:54px;
+  border-radius:18px;
+  display:grid;place-items:center;
+  background:var(--panel-2);
+  border:1px solid var(--border);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  box-shadow:var(--shadow-sm);
+  color:var(--text);
+  transition:transform .45s cubic-bezier(.2,.9,.25,1.2),background .35s,border-color .35s,box-shadow .35s;
+}
+.theme-btn:hover{
+  transform:translateY(-3px) scale(1.05);
+  border-color:var(--accent);
+  box-shadow:0 0 0 4px rgba(160,107,255,.14),var(--shadow-sm);
+}
+.theme-btn:active{transform:scale(.94)}
+.theme-btn .ic{width:22px;height:22px;stroke-width:1.9;transition:transform .6s cubic-bezier(.2,.9,.25,1.2),opacity .3s}
+.theme-btn .sun{display:block;color:var(--accent)}
+.theme-btn .moon{display:none;color:var(--accent-2)}
+html[data-theme="light"] .theme-btn .sun{display:none}
+html[data-theme="light"] .theme-btn .moon{display:block}
+.theme-btn.spin .ic{transform:rotate(180deg)}
+
+/* ============================================================
+   NOW PLAYING PLAYER
+   ============================================================ */
+.player{
+  position:fixed;
+  right:22px;bottom:22px;
+  z-index:80;
+  display:flex;align-items:center;gap:13px;
+  padding:10px 14px 10px 10px;
+  border-radius:18px;
+  background:var(--panel-2);
+  border:1px solid var(--border);
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
+  box-shadow:var(--shadow);
+  transform:translateY(160%) scale(.96);
+  opacity:0;
+  pointer-events:none;
+  transition:transform .55s cubic-bezier(.2,.9,.25,1.15),opacity .45s;
+  max-width:380px;
+  overflow:hidden;
+}
+.player.on{transform:none;opacity:1;pointer-events:auto}
+.player .p-art{
+  position:relative;width:48px;height:48px;border-radius:11px;overflow:hidden;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));flex:none;
+}
+.player .p-art img{width:100%;height:100%;object-fit:cover}
+.player .p-meta{min-width:0;flex:1}
+.player .p-title{
+  font-size:13.5px;font-weight:700;letter-spacing:-.01em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.player .p-artist{
+  font-size:11.5px;color:var(--muted);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.p-toggle{
+  width:38px;height:38px;border-radius:50%;
+  display:grid;place-items:center;flex:none;cursor:pointer;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  color:#fff;
+  transition:transform .3s;
+}
+.p-toggle:hover{transform:scale(1.1)}
+.p-toggle:active{transform:scale(.94)}
+.p-toggle .ic{width:15px;height:15px;stroke:none;fill:currentColor}
+.p-progress{
+  position:absolute;left:0;bottom:0;height:2px;width:0%;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2));
+  box-shadow:0 0 10px var(--accent);
+  border-radius:0 2px 2px 0;
+  transition:width .25s linear;
+}
+.eq{display:flex;align-items:flex-end;gap:2.5px;height:18px;flex:none}
+.eq span{
+  width:3px;border-radius:3px;
+  background:linear-gradient(180deg,var(--accent-2),var(--accent));
+  animation:eqBounce 1s ease-in-out infinite;
+}
+.eq span:nth-child(1){height:60%;animation-delay:-.4s}
+.eq span:nth-child(2){height:100%;animation-delay:-.15s}
+.eq span:nth-child(3){height:45%;animation-delay:-.7s}
+.eq span:nth-child(4){height:80%;animation-delay:-.25s}
+@keyframes eqBounce{0%,100%{transform:scaleY(.35)}50%{transform:scaleY(1)}}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+.wrap{
+  max-width:1140px;
+  margin:0 auto;
+  padding:26px 28px 150px;
+  position:relative;
+}
+
+/* ---------- HEADER ---------- */
+header{
+  display:flex;align-items:center;gap:14px;
+  padding:14px 0 22px;
+  border-bottom:1px solid var(--border);
+}
+.logo{
+  width:46px;height:46px;flex:none;
+  border-radius:15px;
+  display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  box-shadow:0 10px 30px rgba(160,107,255,.35);
+  transition:transform .5s cubic-bezier(.2,.9,.25,1.3),box-shadow .4s;
+}
+.logo:hover{transform:rotate(-8deg) scale(1.06);box-shadow:0 14px 40px rgba(160,107,255,.5)}
+.logo svg{width:28px;height:28px;stroke:#fff;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.brand{
+  font-size:23px;font-weight:900;letter-spacing:-.035em;
+  background:linear-gradient(100deg,var(--text) 10%,var(--accent) 55%,var(--accent-2) 95%);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
+}
+.brand-sub{
+  font-size:11px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--muted);font-weight:600;margin-top:1px;
+}
+.header-right{margin-left:auto;display:flex;align-items:center;gap:9px}
+.pill{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:7px 13px;border-radius:999px;
+  border:1px solid var(--border);
+  background:var(--panel);
+  font-size:11px;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);
+  backdrop-filter:blur(14px);
+  transition:border-color .3s,color .3s,transform .3s;
+}
+.pill:hover{border-color:var(--accent);color:var(--text);transform:translateY(-2px)}
+.pill .ic{width:14px;height:14px;color:var(--accent)}
+.dot-live{
+  width:7px;height:7px;border-radius:50%;background:#34e07a;
+  box-shadow:0 0 0 0 rgba(52,224,122,.7);
+  animation:pulseDot 2s infinite;
+}
+@keyframes pulseDot{
+  0%{box-shadow:0 0 0 0 rgba(52,224,122,.6)}
+  70%{box-shadow:0 0 0 9px rgba(52,224,122,0)}
+  100%{box-shadow:0 0 0 0 rgba(52,224,122,0)}
+}
+
+/* ---------- HERO ---------- */
+.hero{
+  display:grid;
+  grid-template-columns:1.3fr .7fr;
+  gap:48px;
+  align-items:center;
+  padding:64px 0 72px;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:9px;
+  font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--accent-2);margin-bottom:18px;
+}
+.hero-eyebrow .ic{width:15px;height:15px}
+.hero h1{
+  font-size:clamp(44px,7vw,78px);
+  font-weight:900;
+  letter-spacing:-.045em;
+  line-height:.94;
+  margin-bottom:16px;
+  background:linear-gradient(115deg,var(--text) 20%,var(--accent) 62%,var(--accent-2) 100%);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
+}
+.hero-tag{
+  font-size:15px;color:var(--muted);font-weight:500;
+  max-width:430px;margin-bottom:30px;
+}
+.hero-tag b{color:var(--text);font-weight:700}
+
+/* BIO FRAME */
+.bioframe{
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  grid-template-areas:
+    "top top top"
+    "l   c   r"
+    "bot bot bot";
+  font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+  font-size:11.5px;
+  letter-spacing:.16em;
+  color:var(--muted);
+  width:max-content;
+  max-width:100%;
+  user-select:none;
+  padding:6px 0;
+}
+.bf-top{grid-area:top}
+.bf-bot{grid-area:bot}
+.bf-l{grid-area:l}
+.bf-r{grid-area:r;text-align:right}
+.bf-top,.bf-bot{
+  text-align:center;white-space:nowrap;
+  color:var(--muted);opacity:.75;
+  background:linear-gradient(90deg,transparent,var(--muted),transparent);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.bf-c{
+  grid-area:c;
+  text-align:center;
+  padding:16px 46px;
+  font-size:19px;font-weight:800;
+  letter-spacing:.42em;
+  text-indent:.42em;
+  background:linear-gradient(100deg,var(--accent),var(--accent-2));
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:shine 6s ease-in-out infinite;
+  background-size:200% auto;
+}
+@keyframes shine{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.bf-l,.bf-r{animation:blinkSoft 4s ease-in-out infinite}
+@keyframes blinkSoft{0%,100%{opacity:.85}50%{opacity:.35}}
+
+/* AVATAR */
+.avatar-wrap{position:relative;justify-self:center;width:100%;max-width:320px}
+.avatar-wrap::before{
+  content:"";position:absolute;inset:-40px;
+  background:radial-gradient(circle at 50% 50%,var(--g1),transparent 68%);
+  filter:blur(28px);z-index:0;border-radius:50%;
+  animation:glowPulse 7s ease-in-out infinite;
+}
+@keyframes glowPulse{0%,100%{opacity:.65;transform:scale(.95)}50%{opacity:1;transform:scale(1.08)}}
+.avatar{
+  position:relative;z-index:1;
+  aspect-ratio:1/1;
+  border-radius:28px;
+  overflow:hidden;
+  border:1px solid var(--border-strong);
+  background:var(--panel);
+  box-shadow:var(--shadow);
+  transition:transform .6s cubic-bezier(.2,.9,.25,1.1),box-shadow .5s;
+}
+.avatar:hover{transform:translateY(-6px) rotate(-1.5deg);box-shadow:0 34px 80px rgba(160,107,255,.28)}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.avatar .fb{font-size:56px}
+
+.avatar-badge{
+  position:absolute;z-index:2;
+  bottom:-14px;right:-14px;
+  width:62px;height:62px;border-radius:20px;
+  display:grid;place-items:center;
+  background:var(--panel-2);
+  border:1px solid var(--border);
+  backdrop-filter:blur(20px);
+  box-shadow:var(--shadow-sm);
+  color:var(--text);
+  animation:bob 4.5s ease-in-out infinite;
+}
+.avatar-badge .ic{width:30px;height:30px;stroke-width:1.8}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-7px) rotate(6deg)}}
+
+/* ============================================================
+   SECTIONS
+   ============================================================ */
+.section{margin-bottom:62px}
+.sec-head{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.sec-head .ic{width:19px;height:19px;color:var(--accent);flex:none}
+.sec-head h2{
+  font-size:12.5px;font-weight:800;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--muted);white-space:nowrap;
+}
+.sec-head .line{
+  flex:1;height:1px;
+  background:linear-gradient(90deg,var(--border),transparent);
+}
+.sec-head .count{
+  font-size:11px;font-weight:700;color:var(--muted);
+  border:1px solid var(--border);border-radius:999px;
+  padding:2px 9px;letter-spacing:.08em;
+}
+
+/* ---------- PANEL / ROWS ---------- */
+.panel{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  overflow:hidden;
+  transition:border-color .4s,background .6s;
+}
+.panel:hover{border-color:var(--border-strong)}
+.rows{display:grid}
+.row{
+  display:grid;
+  grid-template-columns:245px 1fr;
+  gap:26px;
+  align-items:center;
+  padding:17px 24px;
+  border-top:1px solid var(--border);
+  transition:background .3s;
+}
+.row:first-child{border-top:none}
+.row:hover{background:var(--panel-2)}
+.row .k{
+  display:flex;align-items:center;gap:10px;
+  font-size:11.5px;font-weight:700;
+  letter-spacing:.15em;text-transform:uppercase;
+  color:var(--muted);
+}
+.row .k .ic{width:16px;height:16px;color:var(--accent-2)}
+.row .v{font-size:15px;font-weight:600;letter-spacing:-.01em}
+.row .v small{display:block;font-size:12.5px;font-weight:500;color:var(--muted);margin-top:3px;letter-spacing:0}
+.v-list{display:grid;gap:8px}
+.v-item{display:flex;align-items:center;gap:10px;font-size:14.5px;font-weight:600}
+.v-item .idx{
+  width:24px;height:24px;flex:none;border-radius:8px;
+  display:grid;place-items:center;
+  font-size:10.5px;font-weight:800;
+  background:var(--panel-3);border:1px solid var(--border);
+  color:var(--muted);letter-spacing:0;
+}
+.v-item .ic{width:15px;height:15px;color:var(--accent)}
+.tag{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:5px 11px;border-radius:999px;
+  background:var(--panel-3);border:1px solid var(--border);
+  font-size:12px;font-weight:600;
+}
+.tag .ic{width:13px;height:13px}
+
+/* ============================================================
+   CARDS
+   ============================================================ */
+.grid{display:grid;gap:16px}
+.g6{grid-template-columns:repeat(6,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:repeat(2,1fr)}
+
+.card{
+  position:relative;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  overflow:hidden;
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  transition:transform .45s cubic-bezier(.2,.9,.25,1),border-color .4s,box-shadow .45s;
+  display:flex;flex-direction:column;
+}
+.card:hover{
+  transform:translateY(-7px);
+  border-color:rgba(160,107,255,.55);
+  box-shadow:0 22px 48px rgba(0,0,0,.35),0 0 0 1px rgba(160,107,255,.18);
+}
+html[data-theme="light"] .card:hover{box-shadow:0 22px 48px rgba(60,60,120,.18),0 0 0 1px rgba(124,58,237,.18)}
+
+.thumb{
+  position:relative;
+  aspect-ratio:3/4;
+  overflow:hidden;
+  background:linear-gradient(140deg,var(--panel-2),var(--panel));
+  flex:none;
+}
+.thumb.wide{aspect-ratio:16/10}
+.thumb img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .8s cubic-bezier(.2,.9,.25,1),filter .5s;
+}
+.card:hover .thumb img{transform:scale(1.07)}
+.thumb::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,transparent 45%,rgba(0,0,0,.55) 100%);
+  opacity:.9;
+}
+html[data-theme="light"] .thumb::after{background:linear-gradient(180deg,transparent 55%,rgba(10,10,30,.5) 100%)}
+
+.rank{
+  position:absolute;top:9px;left:9px;z-index:2;
+  width:26px;height:26px;border-radius:9px;
+  display:grid;place-items:center;
+  font-size:11px;font-weight:800;
+  background:rgba(10,10,20,.55);
+  border:1px solid rgba(255,255,255,.18);
+  backdrop-filter:blur(10px);
+  color:#fff;
+  letter-spacing:0;
+}
+.card:hover .rank{background:linear-gradient(135deg,var(--accent),var(--accent-2));border-color:transparent}
+
+.card .body{padding:12px 14px 14px;display:flex;flex-direction:column;gap:3px;flex:1}
+.card .name{
+  font-size:13.5px;font-weight:700;letter-spacing:-.015em;line-height:1.25;
+}
+.card .sub{font-size:11.5px;color:var(--muted);font-weight:500;letter-spacing:.01em}
+
+/* fallback for missing images */
+.fb{
+  display:none;
+  position:absolute;inset:0;
+  place-items:center;
+  font-weight:900;
+  font-size:26px;
+  letter-spacing:.06em;
+  color:#fff;
+  background:
+    linear-gradient(135deg,rgba(160,107,255,.45),rgba(40,215,240,.32)),
+    var(--panel-2);
+  text-shadow:0 2px 20px rgba(0,0,0,.35);
+}
+.noimg .fb{display:grid}
+img.dead{display:none!important}
+
+/* ============================================================
+   SPOTIFY-STYLE TRACKS
+   ============================================================ */
+.tracks{padding:8px}
+.track{
+  display:grid;
+  grid-template-columns:56px 1fr auto;
+  gap:16px;
+  align-items:center;
+  padding:10px 14px;
+  border-radius:13px;
+  cursor:pointer;
+  transition:background .28s,transform .28s;
+}
+.track:hover{background:var(--panel-2)}
+.track:active{transform:scale(.99)}
+.track.playing{background:var(--panel-2)}
+.track.playing .t-name{color:var(--accent-2)}
+
+.track .art{
+  position:relative;
+  width:56px;height:56px;
+  border-radius:9px;
+  overflow:hidden;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  flex:none;
+  box-shadow:0 6px 18px rgba(0,0,0,.35);
+}
+.track .art img{width:100%;height:100%;object-fit:cover}
+.track .art .fb{font-size:16px}
+.track .art .ov{
+  position:absolute;inset:0;
+  display:grid;place-items:center;
+  background:rgba(0,0,0,.6);
+  color:#fff;
+  opacity:0;
+  transition:opacity .28s;
+  backdrop-filter:blur(2px);
+}
+.track:hover .art .ov{opacity:1}
+.track .art .ov .ic{width:20px;height:20px;stroke-width:0}
+.track .art .ov .ic.filled{stroke:none;fill:#fff}
+
+.track .meta{min-width:0}
+.track .t-name{
+  font-size:14.5px;font-weight:700;letter-spacing:-.01em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  transition:color .3s;
+}
+.track .t-artist{
+  font-size:12.5px;color:var(--muted);font-weight:500;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  margin-top:2px;
+}
+.track .t-right{display:flex;align-items:center;gap:14px}
+.track .t-tag{
+  font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);
+  border:1px solid var(--border);
+  border-radius:999px;padding:4px 10px;
+  transition:border-color .3s,color .3s;
+}
+.track:hover .t-tag{border-color:var(--accent);color:var(--accent)}
+.track .t-play{
+  width:34px;height:34px;border-radius:50%;
+  display:grid;place-items:center;
+  background:var(--panel-3);
+  border:1px solid var(--border);
+  color:var(--text);
+  transition:background .3s,transform .3s,color .3s,border-color .3s;
+}
+.track .t-play .ic{width:14px;height:14px;fill:currentColor;stroke:none}
+.track:hover .t-play{
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  border-color:transparent;color:#fff;transform:scale(1.1);
+}
+
+/* ============================================================
+   PROJECTS
+   ============================================================ */
+.proj{
+  display:grid;
+  grid-template-columns:52px 1fr auto;
+  gap:16px;
+  align-items:center;
+  padding:18px 22px;
+  border-top:1px solid var(--border);
+  transition:background .3s,padding-left .3s;
+}
+.proj:first-child{border-top:none}
+.proj:hover{background:var(--panel-2);padding-left:26px}
+.proj .picon{
+  width:52px;height:52px;border-radius:15px;
+  display:grid;place-items:center;
+  background:linear-gradient(135deg,rgba(160,107,255,.22),rgba(40,215,240,.14));
+  border:1px solid var(--border);
+  color:var(--accent);
+  transition:transform .45s cubic-bezier(.2,.9,.25,1.3);
+}
+.proj:hover .picon{transform:rotate(-8deg) scale(1.08)}
+.proj .picon .ic{width:24px;height:24px}
+.proj .pt{font-size:15px;font-weight:800;letter-spacing:-.015em}
+.proj .ps{font-size:12px;color:var(--muted);margin-top:3px;font-weight:500;line-height:1.4}
+.proj .arrow{
+  color:var(--muted);
+  transition:transform .4s cubic-bezier(.2,.9,.25,1.3),color .3s;
+}
+.proj:hover .arrow{transform:translateX(5px);color:var(--accent-2)}
+.proj .arrow .ic{width:19px;height:19px}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:18px;flex-wrap:wrap;
+  padding-top:26px;
+  border-top:1px solid var(--border);
+  color:var(--muted);
+  font-size:12.5px;font-weight:500;
+}
+.foot-left{display:flex;align-items:center;gap:12px}
+.foot-left .ic{width:22px;height:22px;color:var(--accent);stroke-width:1.6;animation:bob 5s ease-in-out infinite}
+.foot-right{display:flex;align-items:center;gap:8px;letter-spacing:.04em}
+
+/* ============================================================
+   REVEAL ANIMATION
+   ============================================================ */
+.reveal{
+  opacity:0;
+  transform:translateY(26px);
+  transition:opacity .85s cubic-bezier(.2,.8,.2,1),transform .85s cubic-bezier(.2,.8,.2,1);
+  will-change:opacity,transform;
+}
+.reveal.in{opacity:1;transform:none}
+
+/* stagger */
+.grid .card:nth-child(2){transition-delay:.05s}
+.grid .card:nth-child(3){transition-delay:.10s}
+.grid .card:nth-child(4){transition-delay:.15s}
+.grid .card:nth-child(5){transition-delay:.20s}
+.grid .card:nth-child(6){transition-delay:.25s}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:1040px){
+  .g6{grid-template-columns:repeat(3,1fr)}
+  .g3{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr;gap:34px;padding:44px 0 56px}
+  .avatar-wrap{max-width:270px;order:-1}
+  .hero-tag{max-width:none}
+}
+@media (max-width:700px){
+  .wrap{padding:18px 16px 160px}
+  .row{grid-template-columns:1fr;gap:8px;padding:15px 18px}
+  .g6{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:1fr}
+  .g2{grid-template-columns:1fr}
+  .player{left:16px;right:16px;bottom:88px;max-width:none}
+  .theme-btn{left:16px;bottom:16px;width:50px;height:50px}
+  .bioframe{font-size:9.5px}
+  .bf-c{font-size:15px;padding:13px 26px;letter-spacing:.32em;text-indent:.32em}
+  .hero h1{font-size:clamp(38px,13vw,58px)}
+  .brand{font-size:19px}
+  .header-right .pill.hide-sm{display:none}
+  .track{grid-template-columns:48px 1fr auto;gap:12px;padding:9px 10px}
+  .track .art{width:48px;height:48px}
+  .track .t-tag{display:none}
+  .proj{grid-template-columns:46px 1fr auto;padding:15px 16px;gap:13px}
+  .proj .picon{width:46px;height:46px}
+}
+@media (max-width:420px){
+  .g6{grid-template-columns:1fr 1fr}
+  .bf-l,.bf-r{display:none}
+  .bioframe{grid-template-columns:1fr;grid-template-areas:"top" "c" "bot"}
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     BACKGROUND
+     ============================================================ -->
+<div class="bg"></div>
+<div class="blob b1"></div>
+<div class="blob b2"></div>
+<div class="blob b3"></div>
+<div class="grid-overlay"></div>
+
+<!-- ============================================================
+     SVG ICON SPRITE — всё нарисовано линиями, никаких эмодзи
+     ============================================================ -->
+<svg class="sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+
+    <!-- ЛОГОТИП: кот -->
+    <symbol id="i-logo" viewBox="0 0 48 48">
+      <circle cx="24" cy="27" r="13"/>
+      <path d="M14.6 17.6 11 7l10.6 6"/>
+      <path d="M33.4 17.6 37 7 26.4 13"/>
+      <path d="M19.5 24.5v3.6M28.5 24.5v3.6"/>
+      <path d="M22.4 30.3 24 31.9l1.6-1.6"/>
+      <path d="M10.5 29.5 15 30M10.5 33.5 15 32.6"/>
+      <path d="M37.5 29.5 33 30M37.5 33.5 33 32.6"/>
+    </symbol>
+
+    <!-- БОКСЁРСКАЯ ПЕРЧАТКА -->
+    <symbol id="i-glove" viewBox="0 0 24 24">
+      <path d="M6.2 10.6A5.6 5.6 0 0 1 11.8 5h1.2a5.6 5.6 0 0 1 5.6 5.6v4.2a5 5 0 0 1-5 5h-2.4a5 5 0 0 1-5-5z"/>
+      <path d="M6.2 12.6H5.1a2.1 2.1 0 0 0 0 4.2h1.1"/>
+      <path d="M9.4 19.8v1.6h6.2v-1.6"/>
+    </symbol>
+
+    <!-- ИГРОВАЯ ПРИСТАВКА -->
+    <symbol id="i-gamepad" viewBox="0 0 24 24">
+      <path d="M8 8h8a5 5 0 0 1 4.9 4.1l.6 3.6a2.7 2.7 0 0 1-4.7 2.3L15.9 17H8.1l-.9 1a2.7 2.7 0 0 1-4.7-2.3l.6-3.6A5 5 0 0 1 8 8z"/>
+      <path d="M7.7 11.2v2.6M6.4 12.5H9"/>
+      <path d="M15.6 11.4h.9M17.6 13.4h.9"/>
+    </symbol>
+
+    <!-- ШАЙБА / ХОККЕЙ -->
+    <symbol id="i-hockey" viewBox="0 0 24 24">
+      <ellipse cx="12" cy="12.5" rx="8" ry="3.4"/>
+      <path d="M4 12.5v3.6c0 1.9 3.6 3.4 8 3.4s8-1.5 8-3.4v-3.6"/>
+      <path d="M9 12.5h6"/>
+    </symbol>
+
+    <!-- НОТА -->
+    <symbol id="i-note" viewBox="0 0 24 24">
+      <path d="M9 18V5.6l10-2V16"/>
+      <ellipse cx="6.4" cy="18" rx="2.6" ry="2.2"/>
+      <ellipse cx="16.4" cy="16" rx="2.6" ry="2.2"/>
+    </symbol>
+
+    <!-- ПЛЁНКА / КИНО -->
+    <symbol id="i-film" viewBox="0 0 24 24">
+      <rect x="3" y="4.5" width="18" height="15" rx="2.6"/>
+      <path d="M8 4.5v15M16 4.5v15"/>
+      <path d="M3 9.5h5M3 14.5h5M16 9.5h5M16 14.5h5"/>
+    </symbol>
+
+    <!-- ПОЯС (UFC) -->
+    <symbol id="i-belt" viewBox="0 0 24 24">
+      <rect x="2.6" y="9" width="18.8" height="6.6" rx="3.3"/>
+      <circle cx="12" cy="12.3" r="2.7"/>
+      <path d="M8.2 9.2v6.2M15.8 9.2v6.2"/>
+    </symbol>
+
+    <!-- ЗВЕЗДА (PRIDE) -->
+    <symbol id="i-star" viewBox="0 0 24 24">
+      <path d="m12 3.6 2.6 5.3 5.9.8-4.3 4.1 1 5.9L12 17l-5.2 2.7 1-5.9-4.3-4.1 5.9-.8z"/>
+    </symbol>
+
+    <!-- СРАЖЕНИЕ / VS -->
+    <symbol id="i-vs" viewBox="0 0 24 24">
+      <path d="M3 12h6.5M6.5 8.5 3 12l3.5 3.5"/>
+      <path d="M21 12h-6.5M17.5 8.5 21 12l-3.5 3.5"/>
+    </symbol>
+
+    <!-- БОТ -->
+    <symbol id="i-bot" viewBox="0 0 24 24">
+      <rect x="4" y="8" width="16" height="11" rx="3.6"/>
+      <path d="M12 8V5.6"/>
+      <circle cx="12" cy="4.4" r="1.2"/>
+      <path d="M9.2 12.4v1.8M14.8 12.4v1.8"/>
+      <path d="M9.6 16.4h4.8"/>
+      <path d="M2.6 12v3M21.4 12v3"/>
+    </symbol>
+
+    <!-- ССЫЛКА -->
+    <symbol id="i-link" viewBox="0 0 24 24">
+      <path d="M10.4 13.6a4.2 4.2 0 0 0 6 0l2.6-2.6a4.2 4.2 0 0 0-6-6l-1.3 1.3"/>
+      <path d="M13.6 10.4a4.2 4.2 0 0 0-6 0l-2.6 2.6a4.2 4.2 0 0 0 6 6l1.3-1.3"/>
+    </symbol>
+
+    <!-- СЕРДЦЕ -->
+    <symbol id="i-heart" viewBox="0 0 24 24">
+      <path d="M12 20.3 4.6 12.9a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9a4.6 4.6 0 0 1 6.5 6.5z"/>
+    </symbol>
+
+    <!-- ПРОФИЛЬ -->
+    <symbol id="i-user" viewBox="0 0 24 24">
+      <circle cx="12" cy="8" r="3.6"/>
+      <path d="M4.8 20.2a7.2 7.2 0 0 1 14.4 0"/>
+    </symbol>
+
+    <!-- МОЛНИЯ -->
+    <symbol id="i-bolt" viewBox="0 0 24 24">
+      <path d="M13.2 2.6 5 13.6h5.9L10.8 21.4 19 10.4h-5.9z"/>
+    </symbol>
+
+    <!-- ФЛАГ -->
+    <symbol id="i-flag" viewBox="0 0 24 24">
+      <path d="M5.6 21.4V3.2"/>
+      <path d="M5.6 4.4h11.6l-2.1 3.7 2.1 3.7H5.6"/>
+    </symbol>
+
+    <!-- УЛЫБКА ИЗ ПАЛОК -->
+    <symbol id="i-smile" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9"/>
+      <path d="M9.2 9.2v2.4M14.8 9.2v2.4"/>
+      <path d="M8.2 14c1 1.5 2.3 2.2 3.8 2.2s2.8-.7 3.8-2.2"/>
+    </symbol>
+
+    <!-- СОЛНЦЕ -->
+    <symbol id="i-sun" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="4"/>
+      <path d="M12 2.4v2.2M12 19.4v2.2M2.4 12h2.2M19.4 12h2.2"/>
+      <path d="m5.2 5.2 1.6 1.6M17.2 17.2l1.6 1.6M18.8 5.2l-1.6 1.6M6.8 17.2l-1.6 1.6"/>
+    </symbol>
+
+    <!-- ЛУНА -->
+    <symbol id="i-moon" viewBox="0 0 24 24">
+      <path d="M20.2 14.6A8.6 8.6 0 0 1 9.4 3.8a8.6 8.6 0 1 0 10.8 10.8z"/>
+    </symbol>
+
+    <!-- PLAY -->
+    <symbol id="i-play" viewBox="0 0 24 24">
+      <path d="M8 5.4 18.6 12 8 18.6z"/>
+    </symbol>
+
+    <!-- PAUSE -->
+    <symbol id="i-pause" viewBox="0 0 24 24">
+      <rect x="7" y="5" width="3.6" height="14" rx="1.2"/>
+      <rect x="13.4" y="5" width="3.6" height="14" rx="1.2"/>
+    </symbol>
+
+  </defs>
+</svg>
+
+<!-- ============================================================
+     THEME TOGGLE
+     ============================================================ -->
+<button class="theme-btn" id="themeBtn" aria-label="Сменить тему">
+  <svg class="ic sun"><use href="#i-sun"/></svg>
+  <svg class="ic moon"><use href="#i-moon"/></svg>
+</button>
+
+<!-- ============================================================
+     NOW PLAYING
+     ============================================================ -->
+<div class="player" id="player">
+  <div class="p-art">
+    <img id="pArt" alt="" onerror="this.style.display='none'">
+  </div>
+  <div class="p-meta">
+    <div class="p-title" id="pTitle">—</div>
+    <div class="p-artist" id="pArtist">—</div>
+  </div>
+  <button class="p-toggle" id="pToggle" aria-label="Play/Pause">
+    <svg class="ic filled"><use href="#i-play"/></svg>
+  </button>
+  <div class="p-progress" id="pProgress"></div>
+</div>
+
+<!-- ============================================================
+     AUDIO ELEMENT
+     ============================================================ -->
+<audio id="audio" preload="metadata"></audio>
+
+<!-- ============================================================
+     CONTENT
+     ============================================================ -->
+<div class="wrap">
+
+  <!-- ---------- HEADER ---------- -->
+  <header class="reveal">
+    <div class="logo">
+      <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+        <use href="#i-logo"/>
+      </svg>
+    </div>
+    <div>
+      <div class="brand">Hillcat</div>
+      <div class="brand-sub">Personal Space</div>
+    </div>
+    <div class="header-right">
+      <span class="pill hide-sm"><span class="dot-live"></span>Online</span>
+      <span class="pill">
+        <svg class="ic"><use href="#i-glove"/></svg>
+        UFC
+      </span>
+    </div>
+  </header>
+
+  <!-- ---------- HERO ---------- -->
+  <section class="hero">
+    <div class="reveal">
+      <div class="hero-eyebrow">
+        <svg class="ic"><use href="#i-smile"/></svg>
+        Best boxer in the UFC baby
+      </div>
+      <h1>HILLCAT</h1>
+      <p class="hero-tag">
+        <b>Boxing.</b> <b>MMA.</b> <b>Hockey.</b> <b>Music.</b><br>
+        Всё, что я люблю - собрано в одном месте.
+      </p>
+
+      <div class="bioframe" aria-hidden="true">
+        <span class="bf-top">BIO BIO BIO BIO BIO BIO BIO BIO BIO BIO BIO</span>
+        <span class="bf-l">BIO</span>
+        <span class="bf-c">HILLCAT</span>
+        <span class="bf-r">BIO</span>
+        <span class="bf-bot">BIO BIO BIO BIO BIO BIO BIO BIO BIO BIO BIO</span>
+      </div>
+    </div>
+
+    <div class="avatar-wrap reveal">
+      <div class="avatar">
+        <img src="hillcat.png" alt="Hillcat" onerror="imgFail(this)">
+        <span class="fb">HC</span>
+      </div>
+      <div class="avatar-badge">
+        <svg class="ic"><use href="#i-smile"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- ABOUT ME ---------- -->
+  <section class="section reveal">
+    <div class="sec-head">
+      <svg class="ic"><use href="#i-glove"/></svg>
+      <h2>About Me</h2>
+      <span class="line"></span>
+      <span class="count">04</span>
+    </div>
+
+    <div class="panel">
+      <div class="rows">
+
+        <div class="row">
+          <div class="k">
+            <svg class="ic"><use href="#i-user"/></svg>
+            Age
+          </div>
+          <div class="v">1?</div>
+        </div>
+
+        <div class="row">
+          <div class="k">
+            <svg class="ic"><use href="#i-smile"/></svg>
+            Name
+          </div>
+          <div class="v">hillcat</div>
+        </div>
+
+        <div class="row">
+          <div class="k">
+            <svg class="ic"><use href="#i-bolt"/></svg>
+            Status
+          </div>
+          <div class="v">BEST BOXER IN THE UFC BABY</div>
+        </div>
+
+        <div class="row">
+          <div class="k">
+            <svg class="ic"><use href="#i-flag"/></svg>
+            Country &amp; Language
+          </div>
+          <div class="v">
+            <span class="tag">
+              <svg class="ic"><use href="#i-heart"/></svg>
+              Russia
+            </span>
+            <small>Russian</small>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- MMA FIGHTERS ---------- -->
+  <section class="section reveal">
+    <div class="sec-head">
+      <svg class="ic"><use href="#i-glove"/></svg>
+      <h2>Favorite MMA Fighters</h2>
+      <span class="line"></span>
+      <span class="count">06</span>
+    </div>
+
+    <div class="grid g6">
+
+      <article class="card reveal">
+        <div class="thumb">
+          <img src="max-holloway.png" alt="Max Holloway" onerror="imgFail(this)">
+          <span class="fb">MH</span>
+          <span class="rank">01</span>
+        </div>
+        <div class="body">
+          <div class="name">Max Holloway</div>
+          <div class="sub">Featherweight · BMF</div>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="thumb">
+          <img src="dan-hooker.png" alt="Dan Hooker" onerror="imgFail(this)">
+          <span class="fb">DH</span>
+          <span class="rank">02</span>
+        </div>
+        <div class="body">
+          <div class="name">Dan Hooker</div>
+          <div class="sub">Lightweight</div>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="thumb">
+          <img src="dustin-poirier.png" alt="Dustin Poirier" onerror="imgFail(this)">
+          <span class="fb">DP</span>
+          <span class="rank">03</span>
+        </div>
+        <div class="body">
+          <div class="name">Dustin Poirier</div>
+          <div class="sub">Lightweight</div>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="thumb">
+          <img src="wanderlei-silva.png" alt="Wanderlei Silva" onerror="imgFail(this)">
+          <span class="fb">WS</span>
+          <span class="rank">04</span>
+        </div>
+        <div class="body">
+          <div class="name">Wanderlei Silva</div>
+          <div class="sub">Pride Legend</div>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="thumb">
+          <img src="mauricio-ruffy.png" alt="Mauricio Ruffy" onerror="imgFail(this)">
+          <span class="fb">MR</span>
+          <span class="rank">05</span>
+        </div>
+        <div class="body">
+          <div class="name">Mauricio Ruffy</div>
+          <div class="sub">Lightweight</div>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="thumb">
+          <img src="tj-dillashaw.png" alt="TJ Dillashaw" onerror="imgFail(this)">
+          <span class="fb">TJ</span>
+          <span class="rank">06</span>
+        </div>
+        <div class="body">
+          <div class="name">TJ Dillashaw</div>
+          <div class="sub">Bantamweight</div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ---------- GAMES & HOCKEY ---------- -->
+  <section class="section reveal">
+    <div class="sec-head">
+      <svg class="ic"><use href="#i-gamepad"/></svg>
+      <h2>Games &amp; Hockey Clubs</h2>
+      <span class="line"></span>
+      <span class="count">03</span>
+    </div>
+
+    <div class="grid g3">
+
+      <article class="card reveal">
+        <div class="thumb wide">
+          <img src="fortnite.png" alt="Fortnite" onerror="imgFail(this)">
+          <span class="fb">FN</span>
+        </div>
+        <div class="body">
+          <div class="name">
+            <svg class="ic" style="width:14px;height:14px;display:inline-block;vertical-align:-2px;color:var(--accent)"><use href="#i-gamepad"/></svg>
+            Fortnite
+          </div>
+          <div class="sub">Favorite Game</div>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="thumb wide">
+          <img src="vegas-golden-knights.png" alt="Vegas Golden Knights" onerror="imgFail(this)">
+          <span class="fb">VGK</span>
+        </div>
+        <div class="body">
+          <div class="name">
+            <svg class="ic" style="width:14px;height:14px;display:inline-block;vertical-align:-2px;color:var(--accent-2)"><use href="#i-hockey"/></svg>
+            Vegas Golden Knights
+          </div>
+          <div class="sub">NHL</div>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="thumb wide">
+          <img src="amur.png" alt="Amur Khabarovsk" onerror="imgFail(this)">
+          <span class="fb">AMR</span>
+        </div>
+        <div class="body">
+          <div class="name">
+            <svg class="ic" style="width:14px;height:14px;display:inline-block;vertical-align:-2px;color:var(--accent-2)"><use href="#i-hockey"/></svg>
+            Amur Khabarovsk
+          </div>
+          <div class="sub">KHL</div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ---------- MUSIC ---------- -->
+  <section class="section reveal">
+    <div class="sec-head">
+      <svg class="ic"><use href="#i-note"/></svg>
+      <h2>Favorite Songs</h2>
+      <span class="line"></span>
+      <span class="count">03</span>
+    </div>
+
+    <div class="panel">
+      <div class="tracks">
+
+        <div class="track" data-title="MY JEALOUSY" data-artist="vivi baby, ovg!" data-audio="my-jealousy.mp3">
+          <div class="art">
+            <img src="my-jealousy.png" alt="MY JEALOUSY" onerror="imgFail(this)">
+            <span class="fb">MJ</span>
+            <span class="ov"><svg class="ic filled"><use href="#i-play"/></svg></span>
+          </div>
+          <div class="meta">
+            <div class="t-name">MY JEALOUSY</div>
+            <div class="t-artist">vivi baby, ovg!</div>
+          </div>
+          <div class="t-right">
+            <span class="t-tag">Track</span>
+            <button class="t-play" aria-label="Play">
+              <svg class="ic"><use href="#i-play"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="track" data-title="LEGACY" data-artist="PIXY" data-audio="legacy.mp3">
+          <div class="art">
+            <img src="legacy.png" alt="LEGACY" onerror="imgFail(this)">
+            <span class="fb">LG</span>
+            <span class="ov"><svg class="ic filled"><use href="#i-play"/></svg></span>
+          </div>
+          <div class="meta">
+            <div class="t-name">LEGACY</div>
+            <div class="t-artist">PIXY</div>
+          </div>
+          <div class="t-right">
+            <span class="t-tag">Track</span>
+            <button class="t-play" aria-label="Play">
+              <svg class="ic"><use href="#i-play"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="track" data-title="Harvey" data-artist="Alex G" data-audio="harvey.mp3">
+          <div class="art">
+            <img src="harvey.png" alt="Harvey" onerror="imgFail(this)">
+            <span class="fb">HG</span>
+            <span class="ov"><svg class="ic filled"><use href="#i-play"/></svg></span>
+          </div>
+          <div class="meta">
+            <div class="t-name">Harvey</div>
+            <div class="t-artist">Alex G</div>
+          </div>
+          <div class="t-right">
+            <span class="t-tag">Track</span>
+            <button class="t-play" aria-label="Play">
+              <svg class="ic"><use href="#i-play"/></svg>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- MOVIES ---------- -->
+  <section class="section reveal">
+    <div class="sec-head">
+      <svg class="ic"><use href="#i-film"/></svg>
+      <h2>Favorite Movies</h2>
+      <span class="line"></span>
+      <span class="count">02</span>
+    </div>
+
+    <div class="grid g2">
+
+      <article class="card reveal">
+        <div class="thumb wide">
+          <img src="the-ring.png" alt="The Ring" onerror="imgFail(this)">
+          <span class="fb">TR</span>
+        </div>
+        <div class="body">
+          <div class="name">The Ring</div>
+          <div class="sub">2002 · Horror</div>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="thumb wide">
+          <img src="sinister.png" alt="Sinister" onerror="imgFail(this)">
+          <span class="fb">SN</span>
+        </div>
+        <div class="body">
+          <div class="name">Sinister</div>
+          <div class="sub">2012 · Horror</div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ---------- EVENTS & FIGHTS ---------- -->
+  <section class="section reveal">
+    <div class="sec-head">
+      <svg class="ic"><use href="#i-belt"/></svg>
+      <h2>Events &amp; Fights</h2>
+      <span class="line"></span>
+      <span class="count">03</span>
+    </div>
+
+    <div class="grid g3">
+
+      <article class="card reveal">
+        <div class="thumb wide">
+          <img src="ufc-300.png" alt="UFC 300" onerror="imgFail(this)">
+          <span class="fb">300</span>
+        </div>
+        <div class="body">
+          <div class="name">
+            <svg class="ic" style="width:14px;height:14px;display:inline-block;vertical-align:-2px;color:var(--accent)"><use href="#i-belt"/></svg>
+            UFC 300
+          </div>
+          <div class="sub">Favorite UFC Event</div>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="thumb wide">
+          <img src="pride-2005.png" alt="Pride Final Conflict 2005" onerror="imgFail(this)">
+          <span class="fb">PRIDE</span>
+        </div>
+        <div class="body">
+          <div class="name">
+            <svg class="ic" style="width:14px;height:14px;display:inline-block;vertical-align:-2px;color:var(--accent-2)"><use href="#i-star"/></svg>
+            Pride Final Conflict 2005
+          </div>
+          <div class="sub">Favorite Pride Event</div>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="thumb wide">
+          <img src="hooker-vs-poirier.png" alt="Dan Hooker vs Dustin Poirier" onerror="imgFail(this)">
+          <span class="fb">VS</span>
+        </div>
+        <div class="body">
+          <div class="name">
+            <svg class="ic" style="width:14px;height:14px;display:inline-block;vertical-align:-2px;color:var(--accent)"><use href="#i-vs"/></svg>
+            Dan Hooker vs Dustin Poirier
+          </div>
+          <div class="sub">Favorite UFC Fight</div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ---------- PROJECTS ---------- -->
+  <section class="section reveal">
+    <div class="sec-head">
+      <svg class="ic"><use href="#i-bot"/></svg>
+      <h2>Projects</h2>
+      <span class="line"></span>
+      <span class="count">03</span>
+    </div>
+
+    <div class="panel">
+
+      <a class="proj" href="https://t.me/giveawayshc_bot" target="_blank" rel="noopener">
+        <div class="picon">
+          <svg class="ic"><use href="#i-heart"/></svg>
+        </div>
+        <div>
+          <div class="pt">@giveawayshc_bot</div>
+          <div class="ps">БОТ ДЛЯ СОЗДАНИЯ РОЗЫГРЫШЕЙ В ЧАТЕ</div>
+        </div>
+        <div class="arrow"><svg class="ic"><use href="#i-link"/></svg></div>
+      </a>
+
+      <a class="proj" href="https://t.me/hillcat_bot" target="_blank" rel="noopener">
+        <div class="picon">
+          <svg class="ic"><use href="#i-bot"/></svg>
+        </div>
+        <div>
+          <div class="pt">@hillcat_bot</div>
+          <div class="ps">БОТ ДЛЯ НАПИСАНИЯ АНОНИМНЫХ СООБЩЕНИЙ</div>
+        </div>
+        <div class="arrow"><svg class="ic"><use href="#i-link"/></svg></div>
+      </a>
+
+      <a class="proj" href="https://t.me/hillcat_bot?start=rn_8UfIjDT" target="_blank" rel="noopener">
+        <div class="picon">
+          <svg class="ic"><use href="#i-link"/></svg>
+        </div>
+        <div>
+          <div class="pt">Anon Link</div>
+          <div class="ps">t.me/hillcat_bot?start=rn_8UfIjDT</div>
+        </div>
+        <div class="arrow"><svg class="ic"><use href="#i-link"/></svg></div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ---------- FOOTER ---------- -->
+  <footer class="reveal">
+    <div class="foot-left">
+      <svg class="ic"><use href="#i-smile"/></svg>
+      <span>© 2026 Hillcat. All rights reserved</span>
+    </div>
+    <div class="foot-right">
+      <svg class="ic" style="width:14px;height:14px;color:var(--accent)"><use href="#i-glove"/></svg>
+      <span>BEST BOXER IN THE UFC BABY</span>
+    </div>
+  </footer>
+
+</div>
+
+<!-- ============================================================
+     SCRIPTS
+     ============================================================ -->
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- THEME ---------- */
+  var root = document.documentElement;
+  var btn  = document.getElementById('themeBtn');
+  var saved = null;
+  try { saved = localStorage.getItem('hillcat-theme'); } catch(e){}
+  if (saved === 'light' || saved === 'dark') {
+    root.setAttribute('data-theme', saved);
+  }
+  btn.addEventListener('click', function(){
+    var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('hillcat-theme', next); } catch(e){}
+    btn.classList.add('spin');
+    setTimeout(function(){ btn.classList.remove('spin'); }, 600);
+  });
+
+  /* ---------- REVEAL ON SCROLL ---------- */
+  var revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.10, rootMargin: '0px 0px -40px 0px' });
+
+    revealEls.forEach(function(el){ io.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  /* ---------- AUDIO PLAYER ---------- */
+  var player     = document.getElementById('player');
+  var pArt       = document.getElementById('pArt');
+  var pTitle     = document.getElementById('pTitle');
+  var pArtist    = document.getElementById('pArtist');
+  var pToggle    = document.getElementById('pToggle');
+  var pProgress  = document.getElementById('pProgress');
+  var audio      = document.getElementById('audio');
+  var currentTrack = null;
+
+  function setToggleIcon(isPlaying){
+    pToggle.innerHTML = isPlaying
+      ? '<svg class="ic filled"><use href="#i-pause"/></svg>'
+      : '<svg class="ic filled"><use href="#i-play"/></svg>';
+  }
+
+  document.querySelectorAll('.track').forEach(function(track){
+    track.addEventListener('click', function(e){
+      /* клик по внутренней кнопке play, когда трек уже активен — просто toggle */
+      if (e.target.closest('.t-play') && currentTrack === track && audio.src) {
+        if (audio.paused) audio.play(); else audio.pause();
+        return;
+      }
+
+      /* повторный клик по активному треку — пауза/плей */
+      if (currentTrack === track && audio.src) {
+        if (audio.paused) audio.play(); else audio.pause();
+        return;
+      }
+
+      currentTrack = track;
+      var title  = track.dataset.title  || '';
+      var artist = track.dataset.artist || '';
+      var artImg = track.querySelector('.art img');
+
+      /* обложка */
+      pTitle.textContent  = title;
+      pArtist.textContent = artist;
+      if (artImg && !artImg.classList.contains('dead') && artImg.getAttribute('src')) {
+        pArt.style.display = 'block';
+        pArt.src = artImg.getAttribute('src');
+      } else {
+        pArt.style.display = 'none';
+        pArt.removeAttribute('src');
+      }
+
+      /* путь к аудио: либо data-audio, либо имя обложки с .mp3 */
+      var audioSrc = track.dataset.audio;
+      if (!audioSrc && artImg) {
+        audioSrc = artImg.getAttribute('src').replace(/\.[^.]+$/, '.mp3');
+      }
+
+      audio.src = audioSrc;
+      audio.currentTime = 0;
+      pProgress.style.width = '0%';
+
+      var playPromise = audio.play();
+      if (playPromise && playPromise.catch) {
+        playPromise.catch(function(err){
+          console.warn('Не получилось проиграть:', audioSrc, err);
+          pTitle.textContent = 'Файл не найден';
+          pArtist.textContent = audioSrc;
+        });
+      }
+
+      player.classList.add('on');
+      document.querySelectorAll('.track').forEach(function(t){ t.classList.remove('playing'); });
+      track.classList.add('playing');
+    });
+  });
+
+  /* кнопка play/pause в баре */
+  pToggle.addEventListener('click', function(e){
+    e.stopPropagation();
+    if (!audio.src) return;
+    if (audio.paused) audio.play(); else audio.pause();
+  });
+
+  audio.addEventListener('play',  function(){ setToggleIcon(true);  });
+  audio.addEventListener('pause', function(){ setToggleIcon(false); });
+
+  audio.addEventListener('timeupdate', function(){
+    if (!audio.duration || !isFinite(audio.duration)) return;
+    var pct = (audio.currentTime / audio.duration) * 100;
+    pProgress.style.width = pct + '%';
+  });
+
+  audio.addEventListener('ended', function(){
+    setToggleIcon(false);
+    pProgress.style.width = '0%';
+    document.querySelectorAll('.track').forEach(function(t){ t.classList.remove('playing'); });
+    currentTrack = null;
+  });
+
+  setToggleIcon(false);
+
+  /* ---------- IMAGE FALLBACK SAFETY ---------- */
+  window.addEventListener('load', function(){
+    document.querySelectorAll('img').forEach(function(img){
+      if (img.complete && img.naturalWidth === 0 && img.getAttribute('src')) {
+        imgFail(img);
+      }
+    });
+  });
+
+})();
+</script>
+
+</body>
+</html>
